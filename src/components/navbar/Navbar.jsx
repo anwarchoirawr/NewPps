@@ -54,7 +54,7 @@ const Navbar = () => {
         <div className="text-2xl text-white md:text-3xl">
           <a href="/#home">
             <img
-              src="URL_KE_GAMBAR_LOGO"
+              src="src/assets/logo-pondok.png"
               alt="Logo Sekolah"
               className="h-auto max-h-[50px]"
             />
