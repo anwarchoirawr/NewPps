@@ -4,7 +4,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 // Import komponen
-import Banner from "./components/Banner/Banner";
+// import Banner from "./components/Banner/Banner";
+import Gallery from "./components/Gallery/Gallery"
 import Footer from "./components/Footer/Footer";
 import Hero from "./components/Hero.jsx/Hero";
 import Navbar2 from "./components/navbar/Navbar2";
@@ -14,7 +15,7 @@ import InfoTerbaru from "./components/InfoTerbaru/InfoTerbaru";
 import Pendaftaran from "./components/Pendaftaran/Pendaftaran";
 import BannerDetails from "./components/BannerDetails/BannerDetails";
 import Banner1 from "./assets/blog1.jpg";
-import FullGallery from "./components/FullGallery/FullGallery"; // Pastikan path ini benar
+import FullGallery from "./components/Gallery/FullGallery"; // Pastikan path ini benar
 
 function App() {
   useEffect(() => {
@@ -44,7 +45,8 @@ function App() {
                 <Hero />
                 <Service />
                 <BannerDetails id="tentang-kami" reverse={true} img={Banner1} />
-                <Banner />
+                {/* <Banner /> */}
+                <Gallery />
                 <Testimoni />
                 <InfoTerbaru />
               </>

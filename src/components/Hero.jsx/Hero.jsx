@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage1 from "/src/assets/hero-pondok1.jpeg";
 import heroImage2 from "/src/assets/hero-pondok2.jpg";
 import heroImage3 from "/src/assets/hero-pondok3.jpeg";
+import './typing-animation.css'; // Impor CSS dari folder yang sama
 
 const Hero = () => {
+  const [displayedText, setDisplayedText] = useState("");
   const navigate = useNavigate();
-
+  
+  const texts = [
+    "Selamat Datang",
+    "Di PPS AL-FURQON"
+  ];
+  
+  useEffect(() => {
+    let textIndex = 0;
+    let charIndex = 0;
+    
+    const typeText = () => {
+      if (textIndex < texts.length) {
+        const text = texts[textIndex];
+        setDisplayedText(text.slice(0, charIndex + 1));
+        charIndex++;
+        if (charIndex === text.length) {
+          charIndex = 0;
+          textIndex++;
+          if (textIndex < texts.length) {
+            setTimeout(() => {
+              setDisplayedText("");
+              typeText();
+            }, 1000); // Delay antara teks
+          }
+        } else {
+          setTimeout(typeText, 100); // Kecepatan mengetik
+        }
+      }
+    };
+    
+    typeText();
+  }, []);
+  
   const handleNavigate = () => {
     navigate('/'); // Pergi ke halaman utama
     setTimeout(() => {
@@ -16,7 +50,6 @@ const Hero = () => {
       }
     }, 100); // Delay singkat untuk memastikan halaman sudah sepenuhnya dimuat
   };
-  
 
   return (
     <main className="relative h-screen bg-black">
@@ -38,22 +71,15 @@ const Hero = () => {
       {/* Content Section */}
       <section className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white bg-black bg-opacity-40 px-4">
         <div className="max-w-2xl w-full">
-          <h1
-            data-aos="fade-down"
-            data-aos-duration="600"
-            className="mb-6 text-5xl font-bold whitespace-normal overflow-hidden text-ellipsis line-clamp-2"
-            style={{
-              textShadow: "2px 2px 4px rgba(255, 255, 255, 0.7)",
-            }}
-          >
-            Selamat Datang di PPS AL-FURQON
+          <h1 className="text-5xl font-bold whitespace-normal overflow-hidden text-ellipsis typing-animation">
+            {displayedText}
           </h1>
           <h2
             data-aos="fade-up"
             data-aos-duration="600"
             className="mb-8 text-lg font-bold"
           >
-            Terakreditasi c
+            Terakreditasi A
           </h2>
 
           {/* Button Section */}
@@ -90,13 +116,6 @@ const Hero = () => {
           .max-w-2xl {
             max-width: 90%; /* Mengatur lebar maksimum untuk perangkat kecil */
           }
-        }
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
       `}</style>
     </main>

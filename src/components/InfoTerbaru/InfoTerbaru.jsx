@@ -11,7 +11,7 @@ import infoImage2 from "/src/assets/hero-pondok2.jpg";
 import infoImage3 from "/src/assets/hero-pondok3.jpeg";
 import infoImage4 from "/src/assets/futsal.jpg";
 
-const InfoSection = () => {
+const InfoTerbaru = () => {
   const navigate = useNavigate();
 
   const infos = [
@@ -33,7 +33,7 @@ const InfoSection = () => {
   return (
     <main className="bg-black">
       <section data-aos="fade-up" className="container py-8 md:py-12">
-        <h2 className="text-2xl font-bold text-center lg:text-left text-white md:text-4xl lg:text-5xl mb-6 underline">
+        <h2 className="text-2xl font-bold text-center lg:text-left text-white md:text-4xl lg:text-5xl md:ml-10 mb-6 underline">
           Berita Terbaru
         </h2>
         <div className="p-3 md:p-10">
@@ -88,4 +88,4 @@ const InfoSection = () => {
   );
 };
 
-export default InfoSection;
+export default InfoTerbaru;

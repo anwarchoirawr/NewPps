@@ -3,6 +3,7 @@ import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import { FaCaretDown, FaWhatsapp } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
+import logo from "/src/assets/logo-pondok.png"; // Import logo dengan benar
 
 const Navbar2 = () => {
   const [theme, setTheme] = useState(
@@ -31,23 +32,23 @@ const Navbar2 = () => {
       <header
         data-aos="fade"
         data-aos-duration="300"
-        className={`relative z-20 border-b-[1px] shadow-lg ${
+        className={`relative z-20 border-b-[1px] shadow-lg transform transition-transform duration-700 ease-in-out ${
           theme === "dark"
             ? "bg-gray-800 text-white border-gray-700"
             : "bg-white text-black border-gray-200"
-        }`}
+        } translate-y-[-100%] animate-slide-down`}
       >
         <nav className="container flex h-[70px] items-center justify-between py-2">
           <div className="text-2xl text-white md:text-3xl">
             <a href="/#home">
               <img
-                src="src/assets/logo-pondok.png"
-                alt="Your Logo"
+                src={logo} // Gunakan logo yang diimport
+                alt="Logo pondok"
                 className="h-[80px] w-auto"
               />
             </a>
           </div>
-          {/* Desktop Menu */}
+          {/* Menu Desktop */}
           <div className="hidden md:block">
             <ul className="flex items-center gap-10">
               <li className="group relative cursor-pointer">
@@ -74,11 +75,10 @@ const Navbar2 = () => {
                   </ul>
                 </div>
               </li>
-              {/* WhatsApp section */}
+              {/* WhatsApp Section */}
               <div className="flex items-center gap-4">
                 <li>
-                <FaWhatsapp className="h-[40px] w-[40px] rounded-md bg-green-500 p-2 text-white hover:bg-green-600" />
-
+                  <FaWhatsapp className="h-[40px] w-[40px] rounded-md bg-green-500 p-2 text-white hover:bg-green-600" />
                 </li>
                 <div>
                   <p className="text-sm">Hubungi kami</p>
@@ -102,7 +102,7 @@ const Navbar2 = () => {
             </ul>
           </div>
 
-          {/* Mobile view */}
+          {/* Mobile View */}
           <div className="flex items-center gap-4 md:hidden">
             {theme === "dark" ? (
               <BiSolidSun

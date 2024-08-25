@@ -22,7 +22,7 @@ const Pendaftaran = () => {
   };
 
   return (
-    <main className="bg-slate-100 dark:bg-slate-900 dark:text-white py-10 pt-40">
+    <main className="bg-slate-100 dark:bg-slate-900 dark:text-white py-12 pt-40 mt-16 md:mb-50">
       {/* Judul Utama */}
       <h1 className="text-center text-5xl font-bold mb-10 underline">Penerimaan Santri Baru</h1>
 

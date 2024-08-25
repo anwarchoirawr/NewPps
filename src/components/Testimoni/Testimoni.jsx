@@ -3,13 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules"; // Ini impor yang sudah diperbarui
+import { Navigation, Pagination } from "swiper/modules";
 
 import Img1 from "/src/assets/hero-pondok1.jpeg";
 import Img2 from "/src/assets/hero-pondok2.jpg";
 import Img3 from "/src/assets/hero-pondok3.jpeg";
-
-
 
 const Testimoni = () => {
   const testimonies = [
@@ -47,7 +45,10 @@ const Testimoni = () => {
         className="mySwiper"
       >
         {testimonies.map((testimony, index) => (
-          <SwiperSlide key={index} className="flex justify-center">
+          <SwiperSlide
+            key={index}
+            className={`flex justify-center ${index % 2 === 0 ? 'animate-flip-left' : 'animate-flip-right'}`}
+          >
             <div className="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-lg max-w-xs text-center min-h-[250px]">
               <img
                 src={testimony.img}
