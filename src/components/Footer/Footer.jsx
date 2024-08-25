@@ -1,96 +1,173 @@
 import React from "react";
-import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa"; // Import ikon media sosial
-import logo from "/src/assets/logo-pondok.png"; // Ganti dengan path logo sekolah
-import mapImage1 from "/src/assets/hero-pondok2.jpg"; // Ganti dengan path gambar peta kampus satu
-import mapImage2 from "/src/assets/hero-pondok2.jpg"; // Ganti dengan path gambar peta kampus dua
+import logo from "/src/assets/logo-pondok.png";
+import kampusSatuImage from "/src/assets/kampusSatuImage.jpg";
+import kampusDuaImage from "/src/assets/kampusDuaImage.jpg";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaYoutube,
+  FaLocationArrow,
+  FaWhatsapp,
+} from "react-icons/fa";
+
+const ImportantLinks = [
+  {
+    title: "Beranda",
+    link: "/#",
+  },
+  {
+    title: "Tentang Kami",
+    link: "/#tentang-kami",
+  },
+  {
+    title: "Gallery",
+    link: "/#gallery",
+  },
+  {
+    title: "Testimoni",
+    link: "/#testimoni",
+  },
+  {
+    title: "Berita Terbaru",
+    link: "/#berita-terbaru",
+  },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-6">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-start md:items-center justify-between">
-        {/* Logo Sekolah */}
-        <div className="flex items-start mb-4 md:mb-0">
-          <img
-            src={logo}
-            alt="Logo Sekolah"
-            className="w-40 h-auto md:w-48 md:h-auto"
-          />
-        </div>
-
-        {/* Link Peta Kampus */}
-        <div className="flex flex-col md:flex-row gap-4 mb-4 md:mb-0">
-          <div className="relative group">
-            <a
-              href="https://maps.google.com/?q=Kampus+Satu" // Ganti dengan link peta kampus satu
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative block"
-            >
-              <img
-                src={mapImage1}
-                alt="Peta Kampus Satu"
-                className="w-48 h-auto rounded-lg border border-gray-600 transition-transform transform group-hover:scale-105"
-              />
-              <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 bg-gray-900 bg-opacity-75 p-2 rounded-lg transition-opacity">Klik link map!</span>
-            </a>
-            <p className="text-center mt-2">Kampus Satu</p>
+    <div className="bg-gray-100 dark:bg-dark mt-14 rounded-t-3xl">
+      <section className="container">
+        <div className="grid md:grid-cols-3 py-5">
+          {/* Company Details */}
+          <div className="py-8 px-4">
+            <img src={logo} alt="Logo" className="h-[80px] w-auto mb-3" />
+            <p className="text-sm">
+              Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Possimus, voluptate.
+            </p>
+            <br />
+            <div className="flex items-center gap-3">
+              <FaLocationArrow />
+              <p>Tlatar Sawangan Magelang</p>
+            </div>
+            <div className="flex items-center gap-3 mt-3">
+              <a
+                href="https://wa.me/6281392645780"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#25D366]"
+              >
+                <FaWhatsapp className="text-2xl duration-300" />
+              </a>
+              <p>+62 813-9264-5780</p>
+            </div>
+            {/* Social Handle */}
+            <div className="flex items-center gap-3 mt-6">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#E4405F]"
+              >
+                <FaInstagram className="text-3xl duration-300" />
+              </a>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#1877F2]"
+              >
+                <FaFacebook className="text-3xl duration-300" />
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF0000]"
+              >
+                <FaYoutube className="text-3xl duration-300" />
+              </a>
+            </div>
           </div>
-
-          <div className="relative group">
-            <a
-              href="https://maps.google.com/?q=Kampus+Dua" // Ganti dengan link peta kampus dua
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative block"
-            >
-              <img
-                src={mapImage2}
-                alt="Peta Kampus Dua"
-                className="w-48 h-auto rounded-lg border border-gray-600 transition-transform transform group-hover:scale-105"
-              />
-              <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 bg-gray-900 bg-opacity-75 p-2 rounded-lg transition-opacity">Klik link map!</span>
-            </a>
-            <p className="text-center mt-2">Kampus Dua</p>
+          {/* Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10">
+            <div className="py-8 px-4">
+              <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
+                Important Links
+              </h1>
+              <ul className="flex flex-col gap-3">
+                {ImportantLinks.map((link) => (
+                  <li
+                    key={link.title}
+                    className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200"
+                  >
+                    <a
+                      href={link.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>&#11162;</span>
+                      <span>{link.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="py-8 px-4">
+              <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
+                Location
+              </h1>
+              <ul className="flex flex-col gap-3">
+                <li className="relative group cursor-pointer">
+                  <a
+                    href="https://maps.app.goo.gl/KLp1VCn4nCb3hSuz6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={kampusSatuImage}
+                      alt="Kampus Satu"
+                      className="w-full h-auto rounded-lg"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <p className="text-white text-lg">Klik link map!</p>
+                    </div>
+                  </a>
+                  <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
+                    Kampus Satu
+                  </p>
+                </li>
+                <li className="relative group cursor-pointer">
+                  <a
+                    href="https://maps.app.goo.gl/LFXceTe3XoaV7BDr8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={kampusDuaImage}
+                      alt="Kampus Dua"
+                      className="w-full h-auto rounded-lg"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <p className="text-white text-lg">Klik link map!</p>
+                    </div>
+                  </a>
+                  <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
+                    Kampus Dua
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-
-        {/* Ikon Sosial Media */}
-        <div className="flex flex-col items-center gap-4 mb-4 md:mb-0">
-          <p className="text-lg font-semibold mb-2">IKUTI KAMI!</p>
-          <div className="flex gap-4">
-            <a
-              href="https://facebook.com/yourpage" // Ganti dengan link Facebook
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-blue-600"
-            >
-              <FaFacebookF size={24} />
-            </a>
-            <a
-              href="https://youtube.com/yourchannel" // Ganti dengan link YouTube
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-red-600"
-            >
-              <FaYoutube size={24} />
-            </a>
-            <a
-              href="https://instagram.com/yourprofile" // Ganti dengan link Instagram
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-pink-600"
-            >
-              <FaInstagram size={24} />
-            </a>
-          </div>
-        </div>
+      </section>
+      {/* Copyright Section */}
+      <div className="bg-gray-200 dark:bg-dark text-center py-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          &copy; 2024 PPS AL-FURQON. All rights reserved.
+        </p>
       </div>
-
-      {/* Copyright */}
-      <div className="text-center mt-4 border-t border-gray-700 pt-4">
-        <p className="text-sm">&copy; {new Date().getFullYear()} Sekolah. Semua hak cipta dilindungi.</p>
-      </div>
-    </footer>
+    </div>
   );
 };
 
