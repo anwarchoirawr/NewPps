@@ -134,7 +134,7 @@ const Footer = () => {
                     </div>
                   </a>
                   <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
-                    Kampus Satu
+                    Gedung SMP
                   </p>
                 </li>
                 <li className="relative group cursor-pointer">
@@ -153,7 +153,7 @@ const Footer = () => {
                     </div>
                   </a>
                   <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
-                    Kampus Dua
+                    Gedung SMA
                   </p>
                 </li>
               </ul>
@@ -172,3 +172,4 @@ const Footer = () => {
 };
 
 export default Footer;
+  
