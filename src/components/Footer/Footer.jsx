@@ -35,7 +35,7 @@ const ImportantLinks = [
 
 const Footer = () => {
   return (
-    <div className="bg-gray-100 dark:bg-dark mt-14 rounded-t-3xl">
+    <div className="bg-slate-950 text-white mt-14 rounded-t-3xl">
       <section className="container">
         <div className="grid md:grid-cols-3 py-5">
           {/* Company Details */}
@@ -64,7 +64,7 @@ const Footer = () => {
             {/* Social Handle */}
             <div className="flex items-center gap-3 mt-6">
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/pesantren_salafiyah_alfurqon/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#E4405F]"
@@ -99,7 +99,7 @@ const Footer = () => {
                 {ImportantLinks.map((link) => (
                   <li
                     key={link.title}
-                    className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200"
+                    className="cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-400"
                   >
                     <a
                       href={link.link}
@@ -133,7 +133,7 @@ const Footer = () => {
                       <p className="text-white text-lg">Klik link map!</p>
                     </div>
                   </a>
-                  <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
+                  <p className="mt-2 text-center text-gray-400">
                     Gedung SMP
                   </p>
                 </li>
@@ -152,7 +152,7 @@ const Footer = () => {
                       <p className="text-white text-lg">Klik link map!</p>
                     </div>
                   </a>
-                  <p className="mt-2 text-center text-gray-700 dark:text-gray-300">
+                  <p className="mt-2 text-center text-gray-400">
                     Gedung SMA
                   </p>
                 </li>
@@ -162,8 +162,8 @@ const Footer = () => {
         </div>
       </section>
       {/* Copyright Section */}
-      <div className="bg-gray-200 dark:bg-dark text-center py-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="bg-slate-900 text-center py-4">
+        <p className="text-sm text-gray-400">
           &copy; 2024 PPS AL-FURQON. All rights reserved.
         </p>
       </div>
@@ -172,4 +172,3 @@ const Footer = () => {
 };
 
 export default Footer;
-  
