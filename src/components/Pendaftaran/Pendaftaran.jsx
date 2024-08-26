@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import brosurImage1 from "/src/assets/brosur.png"; // Ganti dengan path gambar brosur yang sesuai
 import brosurImage2 from "/src/assets/hero-pondok2.jpg"; // Ganti dengan path gambar brosur yang sesuai
 import ImageModal from "./ImageModal"; // Import komponen modal
@@ -24,7 +25,8 @@ const Pendaftaran = () => {
   return (
     <main className="bg-slate-100 dark:bg-slate-900 dark:text-white py-12 pt-40 mt-16 md:mb-50">
       {/* Judul Utama */}
-      <h1 className="text-center text-5xl font-bold mb-10 underline">Penerimaan Santri Baru</h1>
+      <h3 className="text-center text-5xl font-bold mb-10 underline">Penerimaan Santri Baru</h3>
+      <p className="text-center text-2xl font-bold mb-10 underline">Tahun ajaran 2024/2025</p>
 
       <section className="container mx-auto px-4 flex flex-col md:flex-row gap-8">
         {/* Container Brosur Pendaftaran */}
@@ -53,6 +55,20 @@ const Pendaftaran = () => {
             >
               Download Brosur
             </a>
+            {/* Tombol Daftar SMP */}
+            <Link
+              to="/formulir-smp" // Ubah path ini untuk mengarahkan ke FormulirSmp
+              className="block mt-4 bg-green-500 text-white px-6 py-2 rounded-md text-center text-2xl"
+            >
+              Daftar SMP!
+            </Link>
+            {/* Tombol Daftar SMA */}
+            <Link
+              to="/formulir-sma" // Ubah path ini untuk mengarahkan ke FormulirSma
+              className="block mt-4 bg-yellow-500 text-white px-6 py-2 rounded-md text-center text-2xl"
+            >
+              Daftar SMA!
+            </Link>
           </div>
         </div>
 
@@ -69,7 +85,7 @@ const Pendaftaran = () => {
               </button>
               {activeIndex === 0 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p className="text-2xl">Pendaftaran dilakukan dengan mengisi formulir online di website kami.</p>
+                  <p className="text-2xl">Pendaftaran Bisa dilakukan dengan mengisi formulir online di website kami Atau Datang langsung ke Pesantren.</p>
                 </div>
               )}
             </div>
@@ -84,7 +100,7 @@ const Pendaftaran = () => {
               </button>
               {activeIndex === 1 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Untuk pendaftaran, ikuti langkah-langkah berikut: 1. Isi formulir pendaftaran. 2. Upload dokumen yang diperlukan. 3. Bayar biaya pendaftaran.</p>
+                  <p>Untuk pendaftaran, ikuti langkah-langkah berikut: 1. Pilih Jenjang . 2. Isi Formulir. 3. Bayar biaya pendaftaran. 4. konfirmasi Admin . SELESAI.</p>
                 </div>
               )}
             </div>
@@ -99,7 +115,7 @@ const Pendaftaran = () => {
               </button>
               {activeIndex === 2 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Biaya pendaftaran adalah Rp. 500.000. Biaya ini sudah termasuk ujian awal dan administrasi.</p>
+                  <p>Biaya pendaftaran adalah Rp. 300.000. Biaya ini sudah termasuk ujian awal dan administrasi.</p>
                 </div>
               )}
             </div>
@@ -114,7 +130,7 @@ const Pendaftaran = () => {
               </button>
               {activeIndex === 3 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Kuota yang diterima adalah 60 siswa per gelombang.</p>
+                  <p>Kuota yang diterima adalah 60 siswa untuk setiap angkatan.</p>
                 </div>
               )}
             </div>
@@ -122,17 +138,14 @@ const Pendaftaran = () => {
             {/* Gelombang Pendaftaran */}
             <div className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 p-3 rounded-md shadow-lg">
               <button
-                className="w-full bg-blue-500 text-center text-white px-4 py-2 text-left rounded-md focus:outline-none"
+                className="w-full text-center bg-blue-500 text-white px-4 py-2 text-left rounded-md focus:outline-none"
                 onClick={() => handleToggle(4)}
               >
                 Gelombang Pendaftaran
               </button>
               {activeIndex === 4 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>
-                    Gelombang 1: 1 September - 31 Desember 2023 <br />
-                    Gelombang 2: 1 Januari - 31 Maret 2024
-                  </p>
+                  <p>Gelombang pendaftaran terdiri dari 3 gelombang: Gelombang 1 (Januari - Maret), Gelombang 2 (April - Juni), Gelombang 3 (Juli - September).</p>
                 </div>
               )}
             </div>
@@ -140,14 +153,14 @@ const Pendaftaran = () => {
             {/* Ujian */}
             <div className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 p-3 rounded-md shadow-lg">
               <button
-                className="w-full bg-blue-500 text-center text-white px-4 py-2 text-left rounded-md focus:outline-none"
+                className="w-full text-center bg-blue-500 text-white px-4 py-2 text-left rounded-md focus:outline-none"
                 onClick={() => handleToggle(5)}
               >
                 Ujian
               </button>
               {activeIndex === 5 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Ujian dilakukan setiap hari Sabtu dan Ahad.</p>
+                  <p>Ujian akan dilaksanakan pada bulan Mei dan September untuk menentukan kelulusan.</p>
                 </div>
               )}
             </div>
@@ -155,14 +168,14 @@ const Pendaftaran = () => {
             {/* Pengumuman */}
             <div className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 p-3 rounded-md shadow-lg">
               <button
-                className="w-full bg-blue-500 text-center text-white px-4 py-2 text-left rounded-md focus:outline-none"
+                className="w-full text-center bg-blue-500 text-white px-4 py-2 text-left rounded-md focus:outline-none"
                 onClick={() => handleToggle(6)}
               >
                 Pengumuman
               </button>
               {activeIndex === 6 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Pengumuman hasil seleksi akan diumumkan melalui website resmi pada tanggal 1 setiap bulannya.</p>
+                  <p>Pengumuman hasil ujian akan diumumkan pada bulan Juni dan Desember.</p>
                 </div>
               )}
             </div>
@@ -170,8 +183,10 @@ const Pendaftaran = () => {
         </div>
       </section>
 
-      {/* Modal Gambar */}
-      {isModalOpen && <ImageModal isOpen={isModalOpen} imageSrc={modalImage} onClose={closeModal} />}
+      {/* Modal */}
+      {isModalOpen && (
+        <ImageModal imageSrc={modalImage} onClose={closeModal} />
+      )}
     </main>
   );
 };

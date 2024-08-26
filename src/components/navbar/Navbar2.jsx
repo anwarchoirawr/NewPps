@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import { FaCaretDown, FaWhatsapp } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Import Link dari react-router-dom
 import ResponsiveMenu from "./ResponsiveMenu";
 import logo from "/src/assets/logo-pondok.png"; // Import logo dengan benar
 
@@ -40,13 +41,13 @@ const Navbar2 = () => {
       >
         <nav className="container flex h-[70px] items-center justify-between py-2">
           <div className="text-2xl text-white md:text-3xl">
-            <a href="/#home">
+            <Link to="/">
               <img
                 src={logo} // Gunakan logo yang diimport
                 alt="Logo pondok"
                 className="h-[80px] w-auto"
               />
-            </a>
+            </Link>
           </div>
           {/* Menu Desktop */}
           <div className="hidden md:block">
