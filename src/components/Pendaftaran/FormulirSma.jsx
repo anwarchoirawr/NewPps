@@ -1,5 +1,3 @@
-// src/components/FormulirSma.jsx
-
 import React, { useState, useRef, useEffect } from 'react';
 
 const FormulirSma = () => {
@@ -11,26 +9,59 @@ const FormulirSma = () => {
     asal: '',
   });
 
-  const [showNotification, setShowNotification] = useState(false); // State untuk notifikasi
+  const [errorMessage, setErrorMessage] = useState(''); // State untuk pesan kesalahan
+  const [successMessage, setSuccessMessage] = useState(''); // State untuk pesan sukses
   const formRef = useRef(null); // Ref untuk formulir
 
+  // Menghandle perubahan input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // Menghandle pengiriman formulir
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
-    setFormData({
-      namaAnak: '',
-      namaAyah: '',
-      namaIbu: '',
-      umur: '',
-      asal: '',
-    });
-    setShowNotification(true); // Tampilkan notifikasi
-    setTimeout(() => setShowNotification(false), 5000); // Sembunyikan notifikasi setelah 5 detik
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    // Validasi
+    if (!formData.namaAnak || !formData.namaAyah || !formData.namaIbu) {
+      setErrorMessage('Nama anak, ayah, atau ibu tidak boleh kosong');
+      return;
+    }
+
+    if (formData.umur <= 0) {
+      setErrorMessage('Umur harus lebih dari 0');
+      return;
+    }
+
+    try {
+      // Mengirim data ke backend
+      const response = await fetch('http://localhost/NewPps/server/FormSma.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(formData).toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error('Terjadi kesalahan saat mengirimkan data');
+      }
+
+      const data = await response.text();
+      setSuccessMessage(data);
+      setFormData({
+        namaAnak: '',
+        namaAyah: '',
+        namaIbu: '',
+        umur: '',
+        asal: '',
+      }); // Mengatur ulang data formulir setelah pengiriman sukses
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   useEffect(() => {
@@ -38,7 +69,7 @@ const FormulirSma = () => {
       formRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
-        inline: 'nearest'
+        inline: 'nearest',
       });
       window.scrollBy(0, -60); // Sesuaikan nilai untuk menggeser ke atas
     }
@@ -47,14 +78,21 @@ const FormulirSma = () => {
   return (
     <div className="relative max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-lg mt-20">
       {/* Notifikasi */}
-      {showNotification && (
+      {errorMessage && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-green-100 text-green-800 p-4 rounded-lg shadow-md">
-            <p className="text-center">Barakallahu fiikum! Pendaftaran berhasil. Silahkan konfirmasi ke nomor WA +62 813-9264-5780.</p>
+          <div className="bg-red-100 text-red-800 p-4 rounded-lg shadow-md">
+            <p className="text-center">{errorMessage}</p>
           </div>
         </div>
       )}
-      
+      {successMessage && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-green-100 text-green-800 p-4 rounded-lg shadow-md">
+            <p className="text-center">{successMessage}</p>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-2xl font-semibold mb-4 text-center">Formulir Pendaftaran SMA</h2>
       <div ref={formRef} className="pt-16"> {/* Margin atas tambahan */}
         <form onSubmit={handleSubmit} className="space-y-4">

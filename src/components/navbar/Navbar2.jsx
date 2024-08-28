@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import { FaCaretDown, FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Import Link dari react-router-dom
+import { Link } from "react-router-dom";
 import ResponsiveMenu from "./ResponsiveMenu";
-import logo from "/src/assets/logo-pondok.png"; // Import logo dengan benar
+import logo from "/src/assets/logo-pondok.png";
 
 const Navbar2 = () => {
   const [theme, setTheme] = useState(
@@ -13,10 +12,6 @@ const Navbar2 = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const element = document.documentElement;
-
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
 
   useEffect(() => {
     if (theme === "dark") {
@@ -28,83 +23,68 @@ const Navbar2 = () => {
     }
   }, [theme]);
 
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
     <>
       <header
-        data-aos="fade"
-        data-aos-duration="300"
         className={`relative z-20 border-b-[1px] shadow-lg transform transition-transform duration-700 ease-in-out ${
           theme === "dark"
             ? "bg-gray-800 text-white border-gray-700"
             : "bg-white text-black border-gray-200"
-        } translate-y-[-100%] animate-slide-down`}
+        }`}
       >
-        <nav className="container flex h-[70px] items-center justify-between py-2">
-          <div className="text-2xl text-white md:text-3xl">
+        <div className="container mx-auto flex justify-between items-center py-3">
+          <div className="flex items-center">
             <Link to="/">
-              <img
-                src={logo} // Gunakan logo yang diimport
-                alt="Logo pondok"
-                className="h-[80px] w-auto"
-              />
+              <img src={logo} alt="Logo" className="w-40 h-auto mr-4" /> {/* Ukuran logo diperbesar */}
             </Link>
           </div>
-          {/* Menu Desktop */}
-          <div className="hidden md:block">
-            <ul className="flex items-center gap-10">
-              <li className="group relative cursor-pointer">
-                <a
-                  href="/#home"
-                  className="flex h-[72px] items-center gap-[2px]"
-                >
-                  Home{" "}
-                  <span>
-                    <FaCaretDown className="transition-transform duration-200 group-hover:rotate-180" />
-                  </span>
-                </a>
-                <div
-                  className={`absolute left-0 top-full mt-2 w-[150px] rounded-md bg-white p-2 text-black opacity-0 shadow-lg transform -translate-y-4 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 ${
-                    theme === "dark" ? "bg-gray-700 text-white" : "bg-white text-black"
-                  }`}
-                >
-                  <ul className="space-y-3">
-                    <li className="p-2 hover:bg-violet-200">Beranda</li>
-                    <li className="p-2 hover:bg-violet-200">Tentang Kami</li>
-                    <li className="p-2 hover:bg-violet-200">Gallery</li>
-                    <li className="p-2 hover:bg-violet-200">Testimoni</li>
-                    <li className="p-2 hover:bg-violet-200">Kajian</li>
-                  </ul>
-                </div>
-              </li>
-              {/* WhatsApp Section */}
-              <div className="flex items-center gap-4">
-                <li>
-                  <FaWhatsapp className="h-[40px] w-[40px] rounded-md bg-green-500 p-2 text-white hover:bg-green-600" />
-                </li>
-                <div>
-                  <p className="text-sm">Hubungi kami</p>
-                  <p className="text-lg">
-                    <a href="tel:+91123456789">+62 813-9264-5780</a>
-                  </p>
-                </div>
-              </div>
-              {/* Light and dark mode switcher */}
-              {theme === "dark" ? (
-                <BiSolidSun
-                  onClick={() => setTheme("light")}
-                  className="cursor-pointer text-2xl"
-                />
-              ) : (
-                <BiSolidMoon
-                  onClick={() => setTheme("dark")}
-                  className="cursor-pointer text-2xl"
-                />
-              )}
-            </ul>
-          </div>
-
-          {/* Mobile View */}
-          <div className="flex items-center gap-4 md:hidden">
+          <nav className="hidden md:flex space-x-4">
+            <Link
+              to="/"
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/tentang-kami"
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              Tentang Kami
+            </Link>
+            <Link
+              to="/gallery"
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              Gallery
+            </Link>
+            <Link
+              to="/testimoni"
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              Testimoni
+            </Link>
+            <Link
+              to="/info-terbaru"
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              Info Terbaru
+            </Link>
+          </nav>
+          <div className="flex items-center space-x-4">
             {theme === "dark" ? (
               <BiSolidSun
                 onClick={() => setTheme("light")}
@@ -116,21 +96,24 @@ const Navbar2 = () => {
                 className="cursor-pointer text-2xl"
               />
             )}
-            {showMenu ? (
-              <HiMenuAlt1
-                onClick={toggleMenu}
-                className="cursor-pointer transition-all"
-                size={30}
-              />
-            ) : (
-              <HiMenuAlt3
-                onClick={toggleMenu}
-                className="cursor-pointer transition-all"
-                size={30}
-              />
-            )}
+            {/* Fitur burger hanya muncul pada tampilan mobile */}
+            <div className="md:hidden flex items-center space-x-4">
+              {showMenu ? (
+                <HiMenuAlt1
+                  onClick={toggleMenu}
+                  className="cursor-pointer transition-all"
+                  size={30}
+                />
+              ) : (
+                <HiMenuAlt3
+                  onClick={toggleMenu}
+                  className="cursor-pointer transition-all"
+                  size={30}
+                />
+              )}
+            </div>
           </div>
-        </nav>
+        </div>
       </header>
       <ResponsiveMenu showMenu={showMenu} />
     </>

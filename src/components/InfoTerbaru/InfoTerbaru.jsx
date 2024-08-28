@@ -16,9 +16,9 @@ const InfoTerbaru = () => {
 
   const infos = [
     { src: infoImage1, alt: "Info 1", description: "Penerimaan Santri Baru", additionalText: "Tahun ajaran 2024/2025", isRegistration: true },
-    { src: infoImage2, alt: "Info 2", description: "Deskripsi Info 2" },
-    { src: infoImage3, alt: "Info 3", description: "Deskripsi Info 3" },
-    { src: infoImage4, alt: "Info 4", description: "Deskripsi Info 4" },
+    { src: infoImage2, alt: "Info 2", description: "Kajian Ahad" },
+    { src: infoImage3, alt: "Info 3", description: "Upacara 17 Agustus" },
+    { src: infoImage4, alt: "Info 4", description: "Event Kejuaraan" },
   ];
 
   const handleReadMore = (isRegistration) => {

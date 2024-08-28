@@ -12,11 +12,11 @@ import Service from "./components/Service/Service";
 import Testimoni from "./components/Testimoni/Testimoni";
 import InfoTerbaru from "./components/InfoTerbaru/InfoTerbaru";
 import Pendaftaran from "./components/Pendaftaran/Pendaftaran";
-import FormulirSmp from "./components/Pendaftaran/FormulirSmp"; // Import komponen FormulirSmp
+import FormulirSmp from "./components/Pendaftaran/FormulirSmp";
 import FormulirSma from "./components/Pendaftaran/FormulirSma";
 import BannerDetails from "./components/BannerDetails/BannerDetails";
 import Banner1 from "./assets/blog1.jpg";
-import FullGallery from "./components/Gallery/FullGallery"; // Pastikan path ini benar
+import FullGallery from "./components/Gallery/FullGallery";
 
 function App() {
   useEffect(() => {
@@ -30,14 +30,12 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/NewPps">  {/* Sesuaikan dengan nama repositori GitHub-mu */}
+    <Router basename="/NewPps">
       <div className="dark:bg-slate-900 dark:text-white min-h-screen">
-        {/* Navbar */}
         <div className="fixed left-0 right-0 top-0 z-50 bg-gradient-to-l from-violet-900 via-violet-800 to-violet-900">
           <Navbar2 />
         </div>
 
-        {/* Routing */}
         <Routes>
           <Route
             path="/"
@@ -54,11 +52,10 @@ function App() {
           />
           <Route path="/gallery" element={<FullGallery />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
-          <Route path="/formulir-smp" element={<FormulirSmp />} /> {/* Tambahkan route ini */}
-          <Route path="/formulir-sma" element={<FormulirSma />} /> {/* Tambahkan route ini */}
+          <Route path="/formulir-smp" element={<FormulirSmp />} />
+          <Route path="/formulir-sma" element={<FormulirSma />} />
         </Routes>
 
-        {/* Footer */}
         <Footer />
       </div>
     </Router>

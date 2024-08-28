@@ -5,6 +5,9 @@ import heroImage2 from "/src/assets/kenaikan-sabuk.jpg";
 import heroImage3 from "/src/assets/persahabatan.jpeg";
 import heroImage4 from "/src/assets/hero-pondok1.jpeg";
 import heroImage5 from "/src/assets/hero-pondok3.jpeg";
+import heroImage6 from "/src/assets/paskibra.jpg";
+
+
 
 const FullGallery = () => {
   const navigate = useNavigate();
@@ -16,6 +19,8 @@ const FullGallery = () => {
     { src: heroImage3, alt: "Gambar 3", description: "Persahabatan" },
     { src: heroImage4, alt: "Gambar 4", description: "Kajian" },
     { src: heroImage5, alt: "Gambar 5", description: "Upacara" },
+    { src: heroImage6, alt: "Gambar 5", description: "Paskibra" },
+
   ];
 
   const handleBack = () => {
