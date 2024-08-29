@@ -6,8 +6,8 @@ import heroImage3 from "/src/assets/bahasa.png";
 
 const Service = () => {
   return (
-    <section className="container mx-auto py-3 md:py-0">
-      <div className="mx-auto grid w-full grid-cols-2 divide-x divide-slate-700 bg-white p-4 shadow-lg dark:bg-gray-800 dark:text-white/70 md:max-w-[800px] md:grid-cols-4">
+    <section className="container mx-auto py-3 md:py-0 pt-0 sm:pt-4">
+      <div className="mx-auto grid w-full grid-cols-2 divide-x divide-slate-700 bg-white p-4 shadow-lg dark:bg-gray-800 dark:text-white dark:divide-gray-700 md:max-w-[800px] md:grid-cols-4">
         <div className="flex flex-col items-center justify-center p-2">
           <img src={heroImage1} alt="tahfidz" className="w-12 h-auto mb-2" />
           <h1 className="text-xs font-semibold text-center sm:text-md md:text-lg">Tahfidz & Sanad</h1>

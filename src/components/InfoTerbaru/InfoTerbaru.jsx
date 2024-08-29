@@ -25,15 +25,14 @@ const InfoTerbaru = () => {
     if (isRegistration) {
       navigate("/pendaftaran");
     } else {
-      // Ganti dengan URL yang sesuai jika perlu
       navigate("/info");
     }
   };
 
   return (
-    <main className="bg-black">
+    <main className="bg-white dark:bg-gray-900"> {/* Mengubah latar belakang utama untuk mendukung dark mode */}
       <section data-aos="fade-up" className="container py-8 md:py-12">
-        <h2 className="text-2xl font-bold text-center lg:text-left text-white md:text-4xl lg:text-5xl md:ml-10 mb-6 underline">
+        <h2 className="text-2xl font-bold text-center lg:text-left text-black dark:text-white md:text-4xl lg:text-5xl md:ml-10 mb-6 underline">
           Berita Terbaru
         </h2>
         <div className="p-3 md:p-10">
@@ -52,7 +51,7 @@ const InfoTerbaru = () => {
           >
             {infos.map((info, index) => (
               <SwiperSlide key={index} className="relative group">
-                <div className="relative rounded-lg overflow-hidden bg-white dark:bg-slate-800 shadow-lg transition-transform duration-300 transform group-hover:scale-105">
+                <div className="relative rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-lg transition-transform duration-300 transform group-hover:scale-105">
                   {/* Stiker New! */}
                   <div className="absolute top-0 right-0 m-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
                     New!
