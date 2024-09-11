@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 // Import komponen
 import Gallery from "./components/Gallery/Gallery";
 import Footer from "./components/Footer/Footer";
-import Hero from "./components/Hero.jsx/Hero"
+import Hero from "./components/Hero.jsx/Hero";
 import Navbar2 from "./components/Navbar/Navbar2";
 import Service from "./components/Service/Service";
 import Testimoni from "./components/Testimoni/Testimoni";
@@ -16,6 +16,7 @@ import FormulirSmp from "./components/Pendaftaran/FormulirSmp";
 import FormulirSma from "./components/Pendaftaran/FormulirSma";
 import BannerDetails from "./components/BannerDetails/BannerDetails";
 import FullGallery from "./components/Gallery/FullGallery";
+import ProfilLengkap from "./components/BannerDetails/ProfilLengkap"
 
 // Import assets
 import Banner1 from "./assets/blog1.jpg";
@@ -58,6 +59,9 @@ function App() {
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/formulir-smp" element={<FormulirSmp />} />
           <Route path="/formulir-sma" element={<FormulirSma />} />
+          
+          {/* Tambahkan rute untuk ProfilLengkap */}
+          <Route path="/profil-lengkap" element={<ProfilLengkap />} />
         </Routes>
 
         {/* Footer */}

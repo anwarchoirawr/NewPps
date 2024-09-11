@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const BannerDetails = ({ reverse = false }) => {
+  const navigate = useNavigate(); // Inisialisasi useNavigate
+
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
+
+  const handleGetStartedClick = () => {
+    navigate('/profil-lengkap'); // Mengarahkan ke ProfilLengkap.jsx
+  };
 
   return (
     <main id="tentang-kami" className="bg-slate-100 dark:bg-slate-900 dark:text-white md:py-20">
@@ -33,7 +40,10 @@ const BannerDetails = ({ reverse = false }) => {
               Sawangan, Magelang.
             </p>
             <div className="space-x-4">
-              <button className="rounded-md border-2 border-primary bg-black px-4 py-2 text-sm text-white transition-colors duration-300 hover:bg-primary/80">
+              <button
+                onClick={handleGetStartedClick} // Tambahkan event handler di sini
+                className="rounded-md border-2 border-primary bg-black px-4 py-2 text-sm text-white transition-colors duration-300 hover:bg-primary/80"
+              >
                 Get Started
               </button>
             </div>
