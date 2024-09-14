@@ -29,17 +29,8 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
         <ul className="space-y-4 text-xl">
           <li>
             <Link
-              to="/"
-              onClick={() => handleLinkClick("/", "")}
-              className="mb-5 inline-block hover:text-gray-400 transition-colors duration-300"
-            >
-              Beranda
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/tentang-kami"
-              onClick={() => handleLinkClick("/tentang-kami", "tentang-kami")} // Scroll ke "tentang-kami"
+              to="/" // Arahkan ke halaman utama
+              onClick={() => handleLinkClick("/", "tentang-kami")} // Scroll ke "tentang-kami" setelah navigasi
               className="mb-5 inline-block hover:text-gray-400 transition-colors duration-300"
             >
               Tentang Kami

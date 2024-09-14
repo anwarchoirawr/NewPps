@@ -24,7 +24,7 @@ const Service = () => {
           <h1 className="text-lg font-bold text-black/80 dark:text-white sm:text-xl md:text-3xl">
             <CountUp
               start={0}
-              end={200}
+              end={100}
               duration={2.75}
               separator=" "
               suffix="+"

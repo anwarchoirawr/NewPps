@@ -9,15 +9,13 @@ import {
   FaLocationArrow,
   FaWhatsapp,
 } from "react-icons/fa";
+import { HashLink } from "react-router-hash-link";
 
+// Important Links Array
 const ImportantLinks = [
   {
-    title: "Beranda",
-    link: "/#",
-  },
-  {
     title: "Tentang Kami",
-    link: "/#tentang-kami",
+    link: "/#tentang-kami", // Link ke bagian tentang-kami
   },
   {
     title: "Gallery",
@@ -42,8 +40,8 @@ const Footer = () => {
           <div className="py-8 px-4">
             <img src={logo} alt="Logo" className="h-[80px] w-auto mb-3" />
             <p className="text-sm">
-              Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Possimus, voluptate.
+              Ikuti kami untuk mendapatkan update terbaru. Syukron Jazakumullahu
+              khairan katsiran. Semoga Allah Ta’ala memberikan kemudahan.
             </p>
             <br />
             <div className="flex items-center gap-3">
@@ -101,14 +99,14 @@ const Footer = () => {
                     key={link.title}
                     className="cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-400"
                   >
-                    <a
-                      href={link.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <HashLink
+                      smooth
+                      to={link.link}
+                      className="hover:underline"
                     >
                       <span>&#11162;</span>
                       <span>{link.title}</span>
-                    </a>
+                    </HashLink>
                   </li>
                 ))}
               </ul>
@@ -133,9 +131,7 @@ const Footer = () => {
                       <p className="text-white text-lg">Klik link map!</p>
                     </div>
                   </a>
-                  <p className="mt-2 text-center text-gray-400">
-                    Gedung SMP
-                  </p>
+                  <p className="mt-2 text-center text-gray-400">Gedung SMP</p>
                 </li>
                 <li className="relative group cursor-pointer">
                   <a
@@ -152,9 +148,7 @@ const Footer = () => {
                       <p className="text-white text-lg">Klik link map!</p>
                     </div>
                   </a>
-                  <p className="mt-2 text-center text-gray-400">
-                    Gedung SMA
-                  </p>
+                  <p className="mt-2 text-center text-gray-400">Gedung SMA</p>
                 </li>
               </ul>
             </div>

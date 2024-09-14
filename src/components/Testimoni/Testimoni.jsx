@@ -13,17 +13,17 @@ const Testimoni = () => {
   const testimonies = [
     {
       img: Img1,
-      name: "anwar putra",
+      name: "Jundil Islam",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
     {
       img: Img2,
-      name: "Jane JOKO",
+      name: "Zakaria Bin Nur Ali",
       text: "Pellentesque habitant morbi tristique senectus et netus.",
     },
     {
-      // Card ini akan menampilkan video YouTube
-      video: "https://www.youtube.com/shorts/D97qywHp6RU", // Ganti dengan URL video YouTube yang kamu inginkan
+      // Ganti URL YouTube Shorts dengan URL video standar
+      video: "https://www.youtube.com/embed/D97qywHp6RU", // URL video standar YouTube
       name: "Radifan Hawari",
       text: "Angkatan 1",
     },

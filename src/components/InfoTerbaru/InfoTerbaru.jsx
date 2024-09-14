@@ -7,22 +7,26 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 
 import infoImage1 from "/src/assets/brosur.png";
-import infoImage2 from "/src/assets/hero-pondok2.jpg";
-import infoImage3 from "/src/assets/hero-pondok3.jpeg";
-import infoImage4 from "/src/assets/futsal.jpg";
+import infoImage2 from "/src/assets/BBM.jpg";
+import infoImage3 from "/src/assets/assestment nasional.jpg";
+import infoImage4 from "/src/assets/ACL.jpg";
 
 const InfoTerbaru = () => {
   const navigate = useNavigate();
 
   const infos = [
     { src: infoImage1, alt: "Info 1", description: "Penerimaan Santri Baru", additionalText: "Tahun ajaran 2024/2025", isRegistration: true },
-    { src: infoImage2, alt: "Info 2", description: "Kajian Ahad" },
-    { src: infoImage3, alt: "Info 3", description: "Upacara 17 Agustus" },
-    { src: infoImage4, alt: "Info 4", description: "Event Kejuaraan" },
+    { src: infoImage2, alt: "Info 2", description: "BBM", additionalText: "Bersih bersih masjid" },
+    { src: infoImage3, alt: "Info 3", description: "Asesment Nasional", additionalText: "Jenjang Wustho" },
+    { src: infoImage4, alt: "Info 4", description: "Event Kejuaraan" , additionalText: "Alikhlas champion league" },
   ];
 
-  const handleReadMore = (isRegistration) => {
-    if (isRegistration) {
+  const handleReadMore = (info) => {
+    if (info.description === "BBM") {
+      window.location.href = "https://ppsaalfurqon.ac.id/bersih-bersih-masjid-kampung/";
+    } else if (info.description === "Asesment Nasional") {
+      window.location.href = "https://www.facebook.com/photo/?fbid=1049206699962766&set=a.139065727643539";
+    } else if (info.isRegistration) {
       navigate("/pendaftaran");
     } else {
       navigate("/info");
@@ -72,7 +76,7 @@ const InfoTerbaru = () => {
                     )}
                     <button
                       className="bg-blue-500 text-white px-4 py-2 rounded-md text-lg font-semibold hover:bg-blue-600 transition-colors duration-300"
-                      onClick={() => handleReadMore(info.isRegistration)}
+                      onClick={() => handleReadMore(info)}
                     >
                       Read More
                     </button>
