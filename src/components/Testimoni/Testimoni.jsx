@@ -22,9 +22,10 @@ const Testimoni = () => {
       text: "Pellentesque habitant morbi tristique senectus et netus.",
     },
     {
-      img: Img3,
-      name: "wes angel",
-      text: "Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec.",
+      // Card ini akan menampilkan video YouTube
+      video: "https://www.youtube.com/shorts/D97qywHp6RU", // Ganti dengan URL video YouTube yang kamu inginkan
+      name: "Radifan Hawari",
+      text: "Angkatan 1",
     },
   ];
 
@@ -50,11 +51,25 @@ const Testimoni = () => {
             className={`flex justify-center ${index % 2 === 0 ? 'animate-flip-left' : 'animate-flip-right'}`}
           >
             <div className="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-lg max-w-xs text-center min-h-[250px]">
-              <img
-                src={testimony.img}
-                alt={testimony.name}
-                className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
-              />
+              {testimony.video ? (
+                <div className="w-full h-48 mb-4">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={testimony.video}
+                    title={testimony.name}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : (
+                <img
+                  src={testimony.img}
+                  alt={testimony.name}
+                  className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
+                />
+              )}
               <h3 className="text-xl font-semibold mb-2">{testimony.name}</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 {testimony.text}

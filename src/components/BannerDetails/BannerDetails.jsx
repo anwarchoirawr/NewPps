@@ -79,7 +79,7 @@ const BannerDetails = ({ reverse = false }) => {
           >
             <h2 className="text-3xl font-bold mb-4">01. Kenapa PPS AL-FURQON</h2>
             <p className="text-slate-600 dark:text-slate-400 text-lg">
-              Hafidz engineer merupakan tagline kita, mencetak generasi Qur'ani yang berilmu dan mampu beradaptasi dengan teknologi wkwk.
+            Mencetak generasi Qur'ani yang berilmu beradab dan mampu bersaing dengan dunia kerja .
             </p>
           </div>
 

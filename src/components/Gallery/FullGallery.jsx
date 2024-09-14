@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage1 from "/src/assets/futsal.jpg";
 import heroImage2 from "/src/assets/kenaikan-sabuk.jpg";
-import heroImage3 from "/src/assets/persahabatan.jpeg";
+import heroImage3 from "/src/assets/sholatJamaah.jpg";
 import heroImage4 from "/src/assets/hero-pondok1.jpeg";
 import heroImage5 from "/src/assets/hero-pondok3.jpeg";
 import heroImage6 from "/src/assets/paskibra.jpg";
@@ -16,7 +16,7 @@ const FullGallery = () => {
   const images = [
     { src: heroImage1, alt: "Kajian Ahad", description: "Futsal" },
     { src: heroImage2, alt: "Kenaikan Sabuk", description: "Kenaikan sabuk" },
-    { src: heroImage3, alt: "Gambar 3", description: "Persahabatan" },
+    { src: heroImage3, alt: "Gambar 3", description: "Sholat jamaah Santri MA" },
     { src: heroImage4, alt: "Gambar 4", description: "Kajian" },
     { src: heroImage5, alt: "Gambar 5", description: "Upacara" },
     { src: heroImage6, alt: "Gambar 5", description: "Paskibra" },

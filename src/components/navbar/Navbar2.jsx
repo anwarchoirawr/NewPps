@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import ResponsiveMenu from "./ResponsiveMenu";
 import logo from "/src/assets/logo-pondok.png";
 
@@ -10,6 +10,7 @@ const Navbar2 = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate(); // Gunakan useNavigate
 
   const element = document.documentElement;
 
@@ -27,6 +28,14 @@ const Navbar2 = () => {
     setShowMenu(!showMenu);
   };
 
+  // Fungsi untuk scroll ke ID tertentu
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <header
@@ -39,47 +48,32 @@ const Navbar2 = () => {
         <div className="container mx-auto flex justify-between items-center py-3">
           <div className="flex items-center">
             <Link to="/">
-              <img src={logo} alt="Logo" className="w-40 h-auto mr-4" /> {/* Ukuran logo diperbesar */}
+              <img src={logo} alt="Logo" className="w-40 h-auto mr-4" />
             </Link>
           </div>
           <nav className="hidden md:flex space-x-4">
             <Link
               to="/"
-              className={`text-lg font-semibold ${
-                theme === "dark" ? "text-white" : "text-black"
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/tentang-kami"
-              className={`text-lg font-semibold ${
-                theme === "dark" ? "text-white" : "text-black"
-              }`}
+              onClick={() => setTimeout(() => scrollToSection("tentang-kami"), 100)} // Scroll ke Tentang Kami
+              className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-black"}`}
             >
               Tentang Kami
             </Link>
             <Link
               to="/gallery"
-              className={`text-lg font-semibold ${
-                theme === "dark" ? "text-white" : "text-black"
-              }`}
+              className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-black"}`}
             >
               Gallery
             </Link>
             <Link
               to="/testimoni"
-              className={`text-lg font-semibold ${
-                theme === "dark" ? "text-white" : "text-black"
-              }`}
+              className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-black"}`}
             >
               Testimoni
             </Link>
             <Link
               to="/info-terbaru"
-              className={`text-lg font-semibold ${
-                theme === "dark" ? "text-white" : "text-black"
-              }`}
+              className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-black"}`}
             >
               Info Terbaru
             </Link>
@@ -96,7 +90,6 @@ const Navbar2 = () => {
                 className="cursor-pointer text-2xl"
               />
             )}
-            {/* Fitur burger hanya muncul pada tampilan mobile */}
             <div className="md:hidden flex items-center space-x-4">
               {showMenu ? (
                 <HiMenuAlt1
