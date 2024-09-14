@@ -93,7 +93,7 @@ const FormulirSma = () => {
         </div>
       )}
 
-      <h2 className="text-2xl font-semibold mb-4 text-center">Formulir Pendaftaran SMA</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMA</h2>
       <div ref={formRef} className="pt-16"> {/* Margin atas tambahan */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Form fields */}

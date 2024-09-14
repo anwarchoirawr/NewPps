@@ -100,7 +100,7 @@ const Pendaftaran = () => {
               </button>
               {activeIndex === 1 && (
                 <div className="bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 p-2 rounded-md mt-2 max-h-32 overflow-y-auto">
-                  <p>Untuk pendaftaran, ikuti langkah-langkah berikut: 1. Pilih Jenjang . 2. Isi Formulir. 3. Bayar biaya pendaftaran. 4. konfirmasi Admin . SELESAI.</p>
+                  <p>Untuk pendaftaran, ikuti langkah-langkah berikut: 1. Pilih Jenjang . 2. Regristasi. 3. Bayar biaya pendaftaran. 4. Isi Formulir . SELESAI.</p>
                 </div>
               )}
             </div>
