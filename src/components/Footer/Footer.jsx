@@ -78,7 +78,7 @@ const Footer = () => {
                 <FaFacebook className="text-3xl duration-300" />
               </a>
               <a
-                href="https://www.youtube.com"
+                href="https://www.youtube.com/@al-ikhlashmagelang4745"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#FF0000]"

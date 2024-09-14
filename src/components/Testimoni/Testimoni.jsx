@@ -24,8 +24,8 @@ const Testimoni = () => {
     {
       // Ganti URL YouTube Shorts dengan URL video standar
       video: "https://www.youtube.com/embed/D97qywHp6RU", // URL video standar YouTube
-      name: "Radifan Hawari",
-      text: "Angkatan 1",
+      name: "Radifan Hawari (Angkatan 1)",
+      text: "Mahasiswa Turki",
     },
   ];
 
