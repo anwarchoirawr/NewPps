@@ -38,7 +38,7 @@ if (!isset($_FILES['buktiPembayaran']) || $_FILES['buktiPembayaran']['error'] !=
 
 $buktiPembayaran = file_get_contents($_FILES['buktiPembayaran']['tmp_name']);
 
-$stmt = $conn->prepare("INSERT INTO pendaftaran_smp (nama_anak, nama_wali, umur, no_hp_wali, asal_sekolah, bukti_pembayaran) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO pendaftaran_sma (nama_anak, nama_wali, umur, no_hp_wali, asal_sekolah, bukti_pembayaran) VALUES (?, ?, ?, ?, ?, ?)");
 if ($stmt === false) {
     die(json_encode(["error" => "Gagal menyiapkan statement: " . $conn->error]));
 }
@@ -46,7 +46,7 @@ if ($stmt === false) {
 $stmt->bind_param("ssisbs", $namaAnak, $namaWali, $umur, $noHpWali, $asalSekolah, $buktiPembayaran);
 
 if ($stmt->execute()) {
-    echo json_encode(["message" => "Barakallahu fikum! Data berhasil disimpan, silahkan untuk konfirmasi Admin"]);
+    echo json_encode(["message" => "Barakallahu fikum! Data berhasil disimpan, Silahkan menunggu Admin akan menghubungi anda"]);
 } else {
     echo json_encode(["error" => "Error: " . $stmt->error]);
 }

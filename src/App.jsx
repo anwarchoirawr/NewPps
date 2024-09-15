@@ -18,6 +18,8 @@ import BannerDetails from "./components/BannerDetails/BannerDetails";
 import FullGallery from "./components/Gallery/FullGallery";
 import ProfilLengkap from "./components/BannerDetails/ProfilLengkap";
 import Pembayaran from "./components/Pendaftaran/Pembayaran"; 
+import TontonVideo from "./components/Pendaftaran/TontonVideo";
+
 
 // Import assets
 import Banner1 from "./assets/blog1.jpg";
@@ -64,6 +66,7 @@ function App() {
           <Route path="/profil-lengkap" element={<ProfilLengkap />} />
           <Route path="/testimoni" element={<Testimoni />} />
           <Route path="/pembayaran" element={<Pembayaran />} /> {/* Rute untuk Pembayaran */}
+          <Route path="/tonton-video" element={<TontonVideo />} />
         </Routes>
 
         {/* Footer */}

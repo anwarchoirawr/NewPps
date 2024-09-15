@@ -1,33 +1,43 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const FormulirSma = () => {
   const [formData, setFormData] = useState({
     namaAnak: '',
-    namaAyah: '',
-    namaIbu: '',
+    namaWali: '',
     umur: '',
-    asal: '',
+    noHpWali: '',
+    asalSekolah: '',
+    buktiPembayaran: null,
+    sudahMembayar: false,
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const formRef = useRef(null);
 
-  const [errorMessage, setErrorMessage] = useState(''); // State untuk pesan kesalahan
-  const [successMessage, setSuccessMessage] = useState(''); // State untuk pesan sukses
-  const formRef = useRef(null); // Ref untuk formulir
+  const navigate = useNavigate(); // Menginisialisasi hook useNavigate
 
-  // Menghandle perubahan input
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, files } = e.target;
+    if (type === 'file') {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  // Menghandle pengiriman formulir
+  const handleCheckboxChange = (e) => {
+    setFormData({ ...formData, sudahMembayar: e.target.checked });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Validasi
-    if (!formData.namaAnak || !formData.namaAyah || !formData.namaIbu) {
-      setErrorMessage('Nama anak, ayah, atau ibu tidak boleh kosong');
+    // Validasi sederhana
+    if (!formData.namaAnak || !formData.namaWali || !formData.umur || !formData.noHpWali || !formData.asalSekolah) {
+      setErrorMessage('Semua field harus diisi');
       return;
     }
 
@@ -36,29 +46,36 @@ const FormulirSma = () => {
       return;
     }
 
+    if (!formData.sudahMembayar) {
+      setErrorMessage('Harap centang checklist sudah membayar');
+      return;
+    }
+
+    // Upload file bukti pembayaran
+    const formDataToSend = new FormData();
+    formDataToSend.append('namaAnak', formData.namaAnak);
+    formDataToSend.append('namaWali', formData.namaWali);
+    formDataToSend.append('umur', formData.umur);
+    formDataToSend.append('noHpWali', formData.noHpWali);
+    formDataToSend.append('asalSekolah', formData.asalSekolah);
+    formDataToSend.append('buktiPembayaran', formData.buktiPembayaran);
+
     try {
-      // Mengirim data ke backend
-      const response = await fetch('http://localhost/NewPps/server/FormSma.php', {
+      const response = await fetch('http://localhost/NewPps/server/FormSmp.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formDataToSend,
       });
 
       if (!response.ok) {
         throw new Error('Terjadi kesalahan saat mengirimkan data');
       }
 
-      const data = await response.text();
-      setSuccessMessage(data);
-      setFormData({
-        namaAnak: '',
-        namaAyah: '',
-        namaIbu: '',
-        umur: '',
-        asal: '',
-      }); // Mengatur ulang data formulir setelah pengiriman sukses
+      const data = await response.json();
+      if (data.error) {
+        setErrorMessage(data.error);
+      } else {
+        setSuccessMessage(data.message);
+      }
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -93,7 +110,7 @@ const FormulirSma = () => {
         </div>
       )}
 
-      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMA</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMA/Aliyah</h2>
       <div ref={formRef} className="pt-16"> {/* Margin atas tambahan */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Form fields */}
@@ -111,25 +128,12 @@ const FormulirSma = () => {
           </div>
 
           <div>
-            <label htmlFor="namaAyah" className="block text-sm font-medium text-gray-700">Nama Ayah</label>
+            <label htmlFor="namaWali" className="block text-sm font-medium text-gray-700">Nama Wali</label>
             <input
               type="text"
-              id="namaAyah"
-              name="namaAyah"
-              value={formData.namaAyah}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="namaIbu" className="block text-sm font-medium text-gray-700">Nama Ibu</label>
-            <input
-              type="text"
-              id="namaIbu"
-              name="namaIbu"
-              value={formData.namaIbu}
+              id="namaWali"
+              name="namaWali"
+              value={formData.namaWali}
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
@@ -150,12 +154,25 @@ const FormulirSma = () => {
           </div>
 
           <div>
-            <label htmlFor="asal" className="block text-sm font-medium text-gray-700">Asal Sekolah</label>
+            <label htmlFor="noHpWali" className="block text-sm font-medium text-gray-700">No HP Wali</label>
             <input
               type="text"
-              id="asal"
-              name="asal"
-              value={formData.asal}
+              id="noHpWali"
+              name="noHpWali"
+              value={formData.noHpWali}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="asalSekolah" className="block text-sm font-medium text-gray-700">Asal Sekolah</label>
+            <input
+              type="text"
+              id="asalSekolah"
+              name="asalSekolah"
+              value={formData.asalSekolah}
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
@@ -164,10 +181,47 @@ const FormulirSma = () => {
 
           <div>
             <button
-              type="submit"
-              className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              type="button"
+              onClick={() => navigate('/pembayaran')} // Navigasi dengan useNavigate
+              className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Kirim
+              Pilih Pembayaran
+            </button>
+          </div>
+
+          <div>
+            <label htmlFor="buktiPembayaran" className="block text-sm font-medium text-gray-700">Upload Bukti Pembayaran</label>
+            <input
+              type="file"
+              id="buktiPembayaran"
+              name="buktiPembayaran"
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="sudahMembayar"
+              name="sudahMembayar"
+              checked={formData.sudahMembayar}
+              onChange={handleCheckboxChange}
+              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <label htmlFor="sudahMembayar" className="ml-2 block text-sm text-gray-900">Saya sudah membayar</label>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={!formData.sudahMembayar} // Tombol dinonaktifkan jika belum tercentang
+              className={`w-full px-4 py-2 font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                formData.sudahMembayar ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+              }`}
+            >
+              Daftar
             </button>
           </div>
         </form>
