@@ -16,13 +16,13 @@ if ($conn->connect_error) {
 }
 
 $namaAnak = isset($_POST['namaAnak']) ? $_POST['namaAnak'] : '';
-$namaAyah = isset($_POST['namaAyah']) ? $_POST['namaAyah'] : '';
-$namaIbu = isset($_POST['namaIbu']) ? $_POST['namaIbu'] : '';
+$namaWali = isset($_POST['namaWali']) ? $_POST['namaWali'] : '';
 $umur = isset($_POST['umur']) ? (int)$_POST['umur'] : 0;
-$asal = isset($_POST['asal']) ? $_POST['asal'] : '';
+$noHpWali = isset($_POST['noHpWali']) ? $_POST['noHpWali'] : '';
+$asalSekolah = isset($_POST['asalSekolah']) ? $_POST['asalSekolah'] : '';
 
-if (empty($namaAnak) || empty($namaAyah) || empty($namaIbu)) {
-    echo json_encode(["error" => "Nama anak, ayah, atau ibu tidak boleh kosong"]);
+if (empty($namaAnak) || empty($namaWali) || empty($umur) || empty($noHpWali) || empty($asalSekolah)) {
+    echo json_encode(["error" => "Semua field harus diisi"]);
     exit;
 }
 
@@ -31,15 +31,22 @@ if ($umur <= 0) {
     exit;
 }
 
-$stmt = $conn->prepare("INSERT INTO pendaftaran_sma (nama_anak, nama_ayah, nama_ibu, umur, asal_sekolah) VALUES (?, ?, ?, ?, ?)");
+if (!isset($_FILES['buktiPembayaran']) || $_FILES['buktiPembayaran']['error'] !== UPLOAD_ERR_OK) {
+    echo json_encode(["error" => "Gagal meng-upload bukti pembayaran"]);
+    exit;
+}
+
+$buktiPembayaran = file_get_contents($_FILES['buktiPembayaran']['tmp_name']);
+
+$stmt = $conn->prepare("INSERT INTO pendaftaran_smp (nama_anak, nama_wali, umur, no_hp_wali, asal_sekolah, bukti_pembayaran) VALUES (?, ?, ?, ?, ?, ?)");
 if ($stmt === false) {
     die(json_encode(["error" => "Gagal menyiapkan statement: " . $conn->error]));
 }
 
-$stmt->bind_param("sssis", $namaAnak, $namaAyah, $namaIbu, $umur, $asal);
+$stmt->bind_param("ssisbs", $namaAnak, $namaWali, $umur, $noHpWali, $asalSekolah, $buktiPembayaran);
 
 if ($stmt->execute()) {
-    echo json_encode(["Barakallahu fikum! Data berhasil disimpan, silahkan untuk konfirmasi Admin"]);
+    echo json_encode(["message" => "Barakallahu fikum! Data berhasil disimpan, silahkan untuk konfirmasi Admin"]);
 } else {
     echo json_encode(["error" => "Error: " . $stmt->error]);
 }

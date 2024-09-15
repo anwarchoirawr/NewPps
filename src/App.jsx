@@ -10,13 +10,14 @@ import Hero from "./components/Hero.jsx/Hero";
 import Navbar2 from "./components/navbar/Navbar2";
 import Service from "./components/Service/Service";
 import Testimoni from "./components/Testimoni/Testimoni";
-import InfoTerbaru from "./components/InfoTerbaru/InfoTerbaru"; // Import komponen InfoTerbaru
+import InfoTerbaru from "./components/InfoTerbaru/InfoTerbaru"; 
 import Pendaftaran from "./components/Pendaftaran/Pendaftaran";
 import FormulirSmp from "./components/Pendaftaran/FormulirSmp";
 import FormulirSma from "./components/Pendaftaran/FormulirSma";
 import BannerDetails from "./components/BannerDetails/BannerDetails";
 import FullGallery from "./components/Gallery/FullGallery";
 import ProfilLengkap from "./components/BannerDetails/ProfilLengkap";
+import Pembayaran from "./components/Pendaftaran/Pembayaran"; 
 
 // Import assets
 import Banner1 from "./assets/blog1.jpg";
@@ -51,7 +52,7 @@ function App() {
                 <BannerDetails id="tentang-kami" reverse={true} img={Banner1} />
                 <Gallery />
                 <Testimoni />
-                <InfoTerbaru /> {/* InfoTerbaru juga muncul di halaman utama */}
+                <InfoTerbaru />
               </>
             }
           />
@@ -59,12 +60,10 @@ function App() {
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/formulir-smp" element={<FormulirSmp />} />
           <Route path="/formulir-sma" element={<FormulirSma />} />
-
-          {/* Tambahkan rute untuk InfoTerbaru */}
-          <Route path="/info-terbaru" element={<InfoTerbaru />} /> {/* Rute ke InfoTerbaru */}
-          
+          <Route path="/info-terbaru" element={<InfoTerbaru />} />
           <Route path="/profil-lengkap" element={<ProfilLengkap />} />
           <Route path="/testimoni" element={<Testimoni />} />
+          <Route path="/pembayaran" element={<Pembayaran />} /> {/* Rute untuk Pembayaran */}
         </Routes>
 
         {/* Footer */}
