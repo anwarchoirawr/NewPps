@@ -17,17 +17,39 @@ const FormulirSma = () => {
 
   const navigate = useNavigate(); // Menginisialisasi hook useNavigate
 
+  // Function untuk menyimpan data form di localStorage
+  const saveFormData = (data) => {
+    localStorage.setItem('formDataSma', JSON.stringify(data));
+  };
+
+  // Function untuk memuat data form dari localStorage
+  const loadFormData = () => {
+    const savedData = localStorage.getItem('formDataSma');
+    if (savedData) {
+      return JSON.parse(savedData);
+    }
+    return null;
+  };
+
+  // Saat form pertama kali di-load, kita ambil data dari localStorage
+  useEffect(() => {
+    const savedData = loadFormData();
+    if (savedData) {
+      setFormData(savedData);
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    if (type === 'file') {
-      setFormData({ ...formData, [name]: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    let newFormData = { ...formData, [name]: type === 'file' ? files[0] : value };
+    setFormData(newFormData);
+    saveFormData(newFormData); // Simpan data setiap kali terjadi perubahan
   };
 
   const handleCheckboxChange = (e) => {
-    setFormData({ ...formData, sudahMembayar: e.target.checked });
+    const newFormData = { ...formData, sudahMembayar: e.target.checked };
+    setFormData(newFormData);
+    saveFormData(newFormData); // Simpan data ketika checkbox berubah
   };
 
   const handleSubmit = async (e) => {
@@ -61,7 +83,7 @@ const FormulirSma = () => {
     formDataToSend.append('buktiPembayaran', formData.buktiPembayaran);
 
     try {
-      const response = await fetch('http://localhost/NewPps/server/FormSmp.php', {
+      const response = await fetch('http://localhost/NewPps/server/FormSma.php', {
         method: 'POST',
         body: formDataToSend,
       });
@@ -75,6 +97,7 @@ const FormulirSma = () => {
         setErrorMessage(data.error);
       } else {
         setSuccessMessage(data.message);
+        localStorage.removeItem('formDataSma'); // Hapus data dari localStorage jika form sukses
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -110,7 +133,7 @@ const FormulirSma = () => {
         </div>
       )}
 
-      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMA/Aliyah</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMa/Aliyah</h2>
       <div ref={formRef} className="pt-16"> {/* Margin atas tambahan */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Form fields */}
@@ -183,47 +206,12 @@ const FormulirSma = () => {
             <button
               type="button"
               onClick={() => navigate('/pembayaran')} // Navigasi dengan useNavigate
-              className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
             >
-              Pilih Pembayaran
+              Lanjut ke Pembayaran
             </button>
           </div>
 
-          <div>
-            <label htmlFor="buktiPembayaran" className="block text-sm font-medium text-gray-700">Upload Bukti Pembayaran</label>
-            <input
-              type="file"
-              id="buktiPembayaran"
-              name="buktiPembayaran"
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="sudahMembayar"
-              name="sudahMembayar"
-              checked={formData.sudahMembayar}
-              onChange={handleCheckboxChange}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <label htmlFor="sudahMembayar" className="ml-2 block text-sm text-gray-900">Saya sudah membayar</label>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={!formData.sudahMembayar} // Tombol dinonaktifkan jika belum tercentang
-              className={`w-full px-4 py-2 font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                formData.sudahMembayar ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-gray-400 text-gray-200 cursor-not-allowed'
-              }`}
-            >
-              Daftar
-            </button>
-          </div>
         </form>
       </div>
     </div>
