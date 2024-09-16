@@ -27,6 +27,15 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
     >
       <nav className="mt-5">
         <ul className="space-y-4 text-xl">
+        <li>
+            <Link
+              to="/pendaftaran"
+              onClick={() => handleLinkClick("/pendaftaran", "")}
+              className="mb-5 inline-block hover:text-gray-400 transition-colors duration-300"
+            >
+              Pendaftaran
+            </Link>
+          </li>
           <li>
             <Link
               to="/" // Arahkan ke halaman utama
@@ -63,7 +72,8 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
               Info Terbaru
             </Link>
           </li>
-        </ul>
+          {/* Tambahkan link Pendaftaran */}
+         </ul>
         <a
           href="https://wa.me/6281392645780"
           target="_blank"
