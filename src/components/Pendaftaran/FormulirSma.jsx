@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { FaClipboard, FaClipboardCheck } from 'react-icons/fa'; // Import ikon copy
 
 const FormulirSma = () => {
   const [formData, setFormData] = useState({
@@ -7,22 +8,22 @@ const FormulirSma = () => {
     namaWali: '',
     umur: '',
     noHpWali: '',
-    asalSekolah: '',
+    metodePembayaran: '',
     buktiPembayaran: null,
     sudahMembayar: false,
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isTransferPopupVisible, setIsTransferPopupVisible] = useState(false);
+  const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah nomor rekening sudah disalin
+  const [isFormValid, setIsFormValid] = useState(false); // State untuk mengatur status validitas form
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Menginisialisasi hook useNavigate
-
-  // Function untuk menyimpan data form di localStorage
   const saveFormData = (data) => {
     localStorage.setItem('formDataSma', JSON.stringify(data));
   };
 
-  // Function untuk memuat data form dari localStorage
   const loadFormData = () => {
     const savedData = localStorage.getItem('formDataSma');
     if (savedData) {
@@ -31,7 +32,6 @@ const FormulirSma = () => {
     return null;
   };
 
-  // Saat form pertama kali di-load, kita ambil data dari localStorage
   useEffect(() => {
     const savedData = loadFormData();
     if (savedData) {
@@ -39,17 +39,29 @@ const FormulirSma = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setIsFormValid(formData.sudahMembayar); // Update status tombol ketika checkbox berubah
+  }, [formData.sudahMembayar]);
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     let newFormData = { ...formData, [name]: type === 'file' ? files[0] : value };
     setFormData(newFormData);
-    saveFormData(newFormData); // Simpan data setiap kali terjadi perubahan
+    saveFormData(newFormData);
+
+    if (name === 'metodePembayaran') {
+      if (value === 'Transfer Bank') {
+        setIsTransferPopupVisible(true);
+      } else {
+        setIsTransferPopupVisible(false);
+      }
+    }
   };
 
   const handleCheckboxChange = (e) => {
     const newFormData = { ...formData, sudahMembayar: e.target.checked };
     setFormData(newFormData);
-    saveFormData(newFormData); // Simpan data ketika checkbox berubah
+    saveFormData(newFormData);
   };
 
   const handleSubmit = async (e) => {
@@ -57,8 +69,7 @@ const FormulirSma = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Validasi sederhana
-    if (!formData.namaAnak || !formData.namaWali || !formData.umur || !formData.noHpWali || !formData.asalSekolah) {
+    if (!formData.namaAnak || !formData.namaWali || !formData.umur || !formData.noHpWali || !formData.metodePembayaran) {
       setErrorMessage('Semua field harus diisi');
       return;
     }
@@ -73,13 +84,12 @@ const FormulirSma = () => {
       return;
     }
 
-    // Upload file bukti pembayaran
     const formDataToSend = new FormData();
     formDataToSend.append('namaAnak', formData.namaAnak);
     formDataToSend.append('namaWali', formData.namaWali);
     formDataToSend.append('umur', formData.umur);
     formDataToSend.append('noHpWali', formData.noHpWali);
-    formDataToSend.append('asalSekolah', formData.asalSekolah);
+    formDataToSend.append('metodePembayaran', formData.metodePembayaran);
     formDataToSend.append('buktiPembayaran', formData.buktiPembayaran);
 
     try {
@@ -97,7 +107,7 @@ const FormulirSma = () => {
         setErrorMessage(data.error);
       } else {
         setSuccessMessage(data.message);
-        localStorage.removeItem('formDataSma'); // Hapus data dari localStorage jika form sukses
+        localStorage.removeItem('formDataSma');
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -111,13 +121,51 @@ const FormulirSma = () => {
         block: 'start',
         inline: 'nearest',
       });
-      window.scrollBy(0, -60); // Sesuaikan nilai untuk menggeser ke atas
+      window.scrollBy(0, -60);
     }
   }, []);
 
+  const handleClosePopup = () => {
+    setIsTransferPopupVisible(false);
+  };
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText('713697889');
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000); // Reset status setelah 2 detik
+  };
+
   return (
     <div className="relative max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-lg mt-20">
-      {/* Notifikasi */}
+      {isTransferPopupVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h3 className="text-lg font-semibold mb-4">Informasi Pembayaran</h3>
+            <p>Silahkan transfer sebesar Rp 300.000 ke:</p>
+            <p className="font-semibold">
+              BSI <br />
+              <span className="text-black font-bold flex items-center">
+                713697889
+                <FaClipboard
+                  onClick={handleCopyToClipboard}
+                  className="ml-2 text-gray-600 cursor-pointer hover:text-gray-800"
+                  title="Salin nomor rekening"
+                />
+                {isCopied && <FaClipboardCheck className="ml-2 text-green-600" title="Nomor rekening disalin!" />}
+              </span>
+              <br />
+              (AN. PPS ALFURQON)
+            </p>
+            <button
+              onClick={handleClosePopup}
+              className="mt-4 w-full bg-red-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      )}
+
       {errorMessage && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="bg-red-100 text-red-800 p-4 rounded-lg shadow-md">
@@ -133,10 +181,9 @@ const FormulirSma = () => {
         </div>
       )}
 
-      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMa/Aliyah</h2>
-      <div ref={formRef} className="pt-16"> {/* Margin atas tambahan */}
+      <h2 className="text-2xl font-semibold mb-4 text-center">Pendaftaran SMA/Wustho</h2>
+      <div ref={formRef} className="pt-16">
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Form fields */}
           <div>
             <label htmlFor="namaAnak" className="block text-sm font-medium text-gray-700">Nama Anak</label>
             <input
@@ -164,7 +211,7 @@ const FormulirSma = () => {
           </div>
 
           <div>
-            <label htmlFor="umur" className="block text-sm font-medium text-gray-700">Umur</label>
+            <label htmlFor="umur" className="block text-sm font-medium text-gray-700">Umur Ananda</label>
             <input
               type="number"
               id="umur"
@@ -177,7 +224,7 @@ const FormulirSma = () => {
           </div>
 
           <div>
-            <label htmlFor="noHpWali" className="block text-sm font-medium text-gray-700">No HP Wali</label>
+            <label htmlFor="noHpWali" className="block text-sm font-medium text-gray-700">No. HP Wali</label>
             <input
               type="text"
               id="noHpWali"
@@ -190,28 +237,55 @@ const FormulirSma = () => {
           </div>
 
           <div>
-            <label htmlFor="asalSekolah" className="block text-sm font-medium text-gray-700">Asal Sekolah</label>
-            <input
-              type="text"
-              id="asalSekolah"
-              name="asalSekolah"
-              value={formData.asalSekolah}
+            <label htmlFor="metodePembayaran" className="block text-sm font-medium text-gray-700">Metode Pembayaran</label>
+            <select
+              id="metodePembayaran"
+              name="metodePembayaran"
+              value={formData.metodePembayaran}
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <button
-              type="button"
-              onClick={() => navigate('/pembayaran')} // Navigasi dengan useNavigate
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
             >
-              Lanjut ke Pembayaran
-            </button>
+              <option value="">Pilih Metode</option>
+              <option value="Transfer Bank">Transfer Bank</option>
+              </select>
           </div>
 
+          {formData.metodePembayaran === 'Transfer Bank' && (
+            <div>
+              <label htmlFor="buktiPembayaran" className="block text-sm font-medium text-gray-700">Bukti Pembayaran</label>
+              <input
+                type="file"
+                id="buktiPembayaran"
+                name="buktiPembayaran"
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+          )}
+
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="sudahMembayar"
+              name="sudahMembayar"
+              checked={formData.sudahMembayar}
+              onChange={handleCheckboxChange}
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            />
+            <label htmlFor="sudahMembayar" className="ml-2 block text-sm text-gray-900">Saya sudah membayar</label>
+          </div>
+
+          <button
+            type="submit"
+            disabled={!isFormValid}
+            className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white ${
+              isFormValid ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-400 cursor-not-allowed'
+            }`}
+          >
+            Kirim
+          </button>
         </form>
       </div>
     </div>

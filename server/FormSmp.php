@@ -49,7 +49,7 @@ if ($stmt === false) {
 $stmt->bind_param("ssisbs", $namaAnak, $namaWali, $umur, $noHpWali, $metodePembayaran, $buktiPembayaran);
 
 if ($stmt->execute()) {
-    echo json_encode(["message" => "Barakallahu fikum! Data berhasil disimpan, Silahkan menunggu Admin akan menghubungi anda"]);
+    echo json_encode(["message" => "Barakallahu fikum! Data berhasil dikirim, Silahkan menunggu Admin akan menghubungi anda"]);
 } else {
     echo json_encode(["error" => "Error: " . $stmt->error]);
 }
