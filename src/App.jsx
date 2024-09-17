@@ -67,8 +67,7 @@ function App() {
           <Route path="/testimoni" element={<Testimoni />} />
           <Route path="/pembayaran" element={<Pembayaran />} /> {/* Rute untuk Pembayaran */}
           <Route path="/tonton-video" element={<TontonVideo />} />
-          <Route path="/pendaftaran" element={<Pendaftaran />} />
-        </Routes>
+         </Routes>
 
         {/* Footer */}
         <Footer />
