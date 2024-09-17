@@ -36,16 +36,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
               Pendaftaran
             </Link>
           </li>
-          <li>
-            <Link
-              to="/" // Arahkan ke halaman utama
-              onClick={() => handleLinkClick("/", "tentang-kami")} // Scroll ke "tentang-kami" setelah navigasi
-              className="mb-5 inline-block hover:text-gray-400 transition-colors duration-300"
-            >
-              Tentang Kami
-            </Link>
-          </li>
-          <li>
+           <li>
             <Link
               to="/gallery"
               onClick={() => handleLinkClick("/gallery", "")}
