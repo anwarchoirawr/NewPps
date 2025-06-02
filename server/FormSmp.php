@@ -9,7 +9,7 @@ $username = "root";
 $password = "";
 $dbname = "pendaftaran_sekolah";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $passnpm word, $dbname);
 
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
